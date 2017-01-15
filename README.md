@@ -8,7 +8,7 @@ Scaricare il file del progetto.
 Aprire MATLAB e scegliere 'Open' dal menu' File: appare la finestra Open da cui si può aprire il file seguendo il suo path.
 Nella cartella è presente un script 'esempio.m' in cui viene richiamata la funzione, inoltre è anche possibile cambiare i parametri e scegliere una diversa traccia audio. Una volta lanciato il programma, viene creato un nuovo segnale audio scalato nel tempo e salvato con nome del file originale seguito dal fattore di scalamento.
 
-## Esempio”
+## Esempio
 
 ```sh
 %% Setup
