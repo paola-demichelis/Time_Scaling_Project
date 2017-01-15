@@ -6,9 +6,9 @@ L'obiettivo di questo progetto è di allungare o accorciare la durata di un file
 ## Setup
 Scaricare il file del progetto.
 Aprire MATLAB e scegliere 'Open' dal menu' File: appare la finestra Open da cui si può aprire il file seguendo il suo path.
-Creando un nuovo script nella stessa directory sarà possibile richiamare la funzione e, come mostrato nel file di esempio, settare i parametri a propria discrezione.
+Nella cartella è presente un script 'esempio.m' in cui viene richiamata la funzione, inoltre è anche possibile cambiare i parametri e scegliere una diversa traccia audio. Una volta lanciato il programma, viene creato un nuovo segnale audio scalato nel tempo e salvato con nome del file originale seguito dal fattore di scalamento.
 
-## Esempio per “farlo girare”
+## Esempio”
 
 ```sh
 %% Setup
