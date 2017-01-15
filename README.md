@@ -1,4 +1,4 @@
-# Time_Scaling_Project
+# Time Scaling Project
 
 Obiettivo
 Speech time-scaling: allungare o accorciare la durata di un file audio senza alterare l’altezza (pitch) del suono, in funzione di un time-scaling-factor compreso tra 0.5 (dimezza la durata) e 2 (raddoppia la durata)
