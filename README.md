@@ -5,24 +5,26 @@ L'obiettivo di questo progetto è di allungare o accorciare la durata di un file
 
 ## Setup
 Scaricare il file del progetto.
-Aprire MATLAB e scegliere Open dal menu' File: appare la finestra Open. 
-Si apre il file seguendo il suo path;
+Aprire MATLAB e scegliere 'Open' dal menu' File: appare la finestra Open da cui si può aprire il file seguendo il suo path.
+Creando un nuovo script nella stessa directory sarà possibile richiamare la funzione e, come mostrato nel file di esempio, settare i parametri a propria discrezione.
 
 ## Esempio per “farlo girare”
 
 ```sh
-%% Inizializzazione dei valori della funzione
+%% Setup
 
 clear all; 
 close all; clc;
+
 L = 240; 
 S = L/2;
 TSR = 0.5;
 dk = 40;
 
-%% Lettura audio in ingresso
+%% Lettura del segnale in input
 
-[input_signal, Fs] = audioread('furelise.wav');
+[input_signal, Fs] = audioread('speech.wav');
+[pathstr,name,ext] = fileparts('speech.wav'); 
 y_output = wsola_funzione(input_signal,TSR,L, dk, S);
 L_tot = length(input_signal);
 outlen = ceil(L_tot/TSR);
@@ -31,9 +33,11 @@ outlen = ceil(L_tot/TSR);
 
 soundsc(y_output(1:outlen),Fs);
 
-%% Salvataggio del file in uscita
+%% Salvataggio del file output
 
-audiowrite('audio.wav',y_output,Fs);
-
+str1 = name;
+str2 = num2str(TSR);
+str = strcat(str1,'_', str2, ext);
+audiowrite(str,y_output,Fs);
 ```
 
