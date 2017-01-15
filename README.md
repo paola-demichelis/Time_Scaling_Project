@@ -1,49 +1,92 @@
-# Time Scaling Project
-
-Obiettivo
-Speech time-scaling: allungare o accorciare la durata di un file audio senza alterare l’altezza (pitch) del suono, in funzione di un time-scaling-factor compreso tra 0.5 (dimezza la durata) e 2 (raddoppia la durata)
-
-Approccio
-" Time-scaling nel domino del tempo tramite la tecnica
-Weighted Overlap and Add [Verhelst93]
+# Time Scaling Project Titolo?
 
  - Breve descrizione
+L'obiettivo di questo progetto è di allungare o accorciare la durata di un file audio senza alterare l’altezza (pitch) del suono, in funzione di un time-scaling-factor compreso tra 0.5 (dimezza la durata) e 2 (raddoppia la durata) utilizzando un approccio di Time-scaling nel domino del tempo tramite la tecnica Weighted Overlap and Add [Verhelst93].
+
  - Procedura di installazione
+ Setup
+
+In Matlab, change to the nctoolbox directory. For example,
+
+cd ~/Documents/MATLAB/nctoolbox
+Run the setup_nctoolbox.m function
+
+setup_nctoolbox
+This sets up nctoolbox for the current Matlab session only. You will need to add the follwing lines to your startup.m file if you would like nctoolbox automatically when you start Matlab:
+
+% Edit '/Path/to/nctoolbox' to correct nctoolbox directory
+addpath('/Path/To/nctoolbox')
+setup_nctoolbo
+
+
+% pathnew_matlab_central
+%
+
+% path-to-speech: starting directory definition
+path-to-speech='C:\data\matlab_central_speech'
+
+% paths to GUI toolkit
+path(strcat(path-to-speech,'\gui_lite_2.6\GUI Lite v2.6'),path);
+
+% paths to speech toolkit
+path(strcat(path-to-speech,'\functions_lrr'),path);
+path(strcat(path-to-speech,'\speech_files'),path);
+
+% path to highpass filter mat files
+path(strcat(path-to-speech,'\highpass_filter_signal'),path);
+
+% path to cepstral coefficient training files
+path(strcat(path-to-speech,'\VQ'),path);
+
+% path to cepstral coefficients
+path(strcat(path-to-speech,'\cepstral coefficients'),path);
+
+% path to lrr isolated digit files set for training and testing
+path(strcat(path-to-speech,'\isolated_digit_files\testing set'),path);
+path(strcat(path-to-speech,'\isolated_digit_files\training set'),path);
+
  - Esempio per “farlo girare”
  
- Step 1: create directory for loading all necessary file folders from MATLAB speech processing exercises (e.g., we create the directory ëmatlab_central_speechí); we define the full path to the chosen directory), e.g., 
+ Example: Deep Belief Network
 
-path-to-speech= 'C:\data\matlab_central_speech'
+function test_example_DBN
+load mnist_uint8;
 
-Step 2: follow the instructions from the Read_Me file which is included within the folder for each of the speech processing exercises) 
+train_x = double(train_x) / 255;
+test_x  = double(test_x)  / 255;
+train_y = double(train_y);
+test_y  = double(test_y);
 
-Step 3: do the following: 
+%%  ex1 train a 100 hidden unit RBM and visualize its weights
+rand('state',0)
+dbn.sizes = [100];
+opts.numepochs =   1;
+opts.batchsize = 100;
+opts.momentum  =   0;
+opts.alpha     =   1;
+dbn = dbnsetup(dbn, train_x, opts);
+dbn = dbntrain(dbn, train_x, opts);
+figure; visualize(dbn.rbm{1}.W');   %  Visualize the RBM weights
 
-download (from Matlab Central File Exchange) and extract the following code folders and data folders into the directory of Step 1, using the following:
+%%  ex2 train a 100-100 hidden unit DBN and use its weights to initialize a NN
+rand('state',0)
+%train dbn
+dbn.sizes = [100 100];
+opts.numepochs =   1;
+opts.batchsize = 100;
+opts.momentum  =   0;
+opts.alpha     =   1;
+dbn = dbnsetup(dbn, train_x, opts);
+dbn = dbntrain(dbn, train_x, opts);
 
-    -go to Matlab Central
-    -click on File Exchange
-    -type speech processing exercises in the search region
-    - extract to the directory of Step 1 the following folders:
+%unfold dbn to nn
+nn = dbnunfoldtonn(dbn, 10);
+nn.activation_function = 'sigm';
 
-    	- functions_lrr
-    	- speech_files
-    	- highpass_filter_signal
-    	- VQ
-    	- cepstral coefficients
-    	- isolated_digit_files
-    	- GUI Lite v2.6 (soon to be available)
+%train nn
+opts.numepochs =  1;
+opts.batchsize = 100;
+nn = nntrain(nn, train_x, train_y, opts);
+[er, bad] = nntest(nn, test_x, test_y);
 
-Step 4: download (from Matlab Central File Exchange) any or all of the folders for the set of speech processing exercises:
-
-    -go to Matlab Central
-    -click on File Exchange
-    -type speech processing exercises in search menu
-    -find any or all of the current set of 58 speech processing exercises and download them (one-at-a-time) to the directory of Step 1
-
-Step 5: edit the file 'pathnew_matlab_central'
-    -change the path-to-speech directory name to the one selected in Step 1
-    -run the resulting pathnew_matlab_central file (this file must be run each time you log into Matlab)
-
-The resulting 'pathnew_matlab_central' should look like the following (for a starting directory of ëC:\data\matlab_central_speech'):
-
+assert(er < 0.10, 'Too big error');
