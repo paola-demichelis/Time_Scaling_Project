@@ -1,7 +1,7 @@
 # Time Scaling Project
 
 ## Breve descrizione
-L'obiettivo di questo progetto è di allungare o accorciare la durata di un file audio senza alterare l’altezza (pitch) del suono, in funzione di un time-scaling-factor compreso tra 0.5 (dimezza la durata) e 2 (raddoppia la durata). Questo procedimento viene realizzato utilizzando un approccio di Time-scaling nel domino del tempo tramite la tecnica Waveform Similarity and Overlap Add (WSOLA) di Verhelst e Roelands del
+L'obiettivo di questo progetto è di allungare o accorciare la durata di un file audio senza alterare l’altezza (pitch) del suono, in funzione di un time-scaling-factor compreso tra 0.5 (dimezza la durata) e 2 (raddoppia la durata). Questo procedimento viene realizzato utilizzando un approccio di Time-scaling nel domino del tempo tramite la tecnica Waveform Similarity and Overlap Add (WSOLA) di Verhelst e Roelands.
 
 ## Setup
 Scaricare il file del progetto.
